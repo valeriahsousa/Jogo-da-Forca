@@ -1,0 +1,58 @@
+import random
+
+def jogar_forca():
+    palavras = ['python', 'programacao', 'jogo', 'computador', 'desenvolvimento']
+    palavra = random.choice(palavras)
+    letras_certas = []
+    letras_erradas = []
+    tentativas = 6
+
+    print("Bem-vindo ao jogo da Forca!")
+    print("A palavra é: ", end="")
+    for _ in palavra:
+        print("_ ", end="")
+    print("\n")
+
+    while True:
+        letra = input("Digite uma letra: ").lower()
+
+        if len(letra) != 1:
+            print("Digite apenas uma letra por vez!")
+            continue
+
+        if letra in letras_certas or letra in letras_erradas:
+            print("Essa letra já foi tentada. Tente novamente!")
+            continue
+
+        if letra in palavra:
+            letras_certas.append(letra)
+            print("Letra correta!")
+        else:
+            letras_erradas.append(letra)
+            tentativas -= 1
+            print("Letra errada!")
+
+        print("Tentativas restantes:", tentativas)
+        print("Letras certas:", letras_certas)
+        print("Letras erradas:", letras_erradas)
+        print()
+
+        palavra_mostrada = ""
+        for letra_palavra in palavra:
+            if letra_palavra in letras_certas:
+                palavra_mostrada += letra_palavra + " "
+            else:
+                palavra_mostrada += "_ "
+
+        print("Palavra: ", palavra_mostrada)
+        print()
+
+        if tentativas == 0:
+            print("Você perdeu! A palavra era", palavra)
+            break
+
+        if set(palavra) == set(letras_certas):
+            print("Parabéns, você ganhou!")
+            break
+
+jogar_forca()
